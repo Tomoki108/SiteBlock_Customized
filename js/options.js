@@ -4,6 +4,8 @@ function save_options() {
   opts.rules = document.getElementById('rules').value;
   opts.allowed = Number(document.getElementById('allowed').value);
   opts.period = Number(document.getElementById('period').value) * 60;
+  opts.allowedTimeZoneFrom = document.getElementById('allowedTimeZoneFrom').value;
+  opts.allowedTimeZoneTill = document.getElementById('allowedTimeZoneTill').value;
 
   csapuntz.siteblock.write_options(opts);
 
@@ -24,6 +26,8 @@ function restore_options() {
   document.getElementById("rules").value = opts.rules;
   document.getElementById("allowed").value = opts.allowed;
   document.getElementById("period").value = opts.period / 60;
+  document.getElementById("allowedTimeZoneFrom").value = opts.allowedTimeZoneFrom;
+  document.getElementById("allowedTimeZoneTill").value = opts.allowedTimeZoneTill;
 }
 
 function on_load() {
