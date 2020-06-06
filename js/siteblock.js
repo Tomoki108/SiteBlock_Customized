@@ -31,6 +31,12 @@ csapuntz.siteblock = (function () {
        if (! ("period" in opts))
           opts.period = 1440;
 
+       if (! ("allowedTimeZoneFrom" in opts))
+          opts.allowedTimeZoneFrom = "00:00";
+
+       if (! ("allowedTimeZoneTill" in opts))
+          opts.allowedTimeZoneTill = "00:00";
+
        return opts;
     },
 
@@ -79,6 +85,26 @@ csapuntz.siteblock = (function () {
              return (time_used + time_adj);
        };
 
+       var check_is_in_allowed_time_zone = function() {
+          var settings = JSON.parse(localStorage['settings']);
+
+          var allowed_time_zone_from = settings['allowedTimeZoneFrom'];
+          var hours = allowed_time_zone_from.substr(0,2);
+          var minutes = allowed_time_zone_from.substr(3,2);
+          var today_allowed_time_zone_from = new Date();
+          today_allowed_time_zone_from.setHours(hours);
+          today_allowed_time_zone_from.setMinutes(minutes);
+
+          var allowed_time_zone_till = settings['allowedTimeZoneTill'];
+          var hours = allowed_time_zone_till.substr(0,2);
+          var minutes = allowed_time_zone_till.substr(3,2);
+          var today_allowed_time_zone_till = new Date();
+          today_allowed_time_zone_till.setHours(hours);
+          today_allowed_time_zone_till.setMinutes(minutes);
+
+          return today_allowed_time_zone_from < new Date() && new Date() < today_allowed_time_zone_till;
+       }
+       
        var self = {
           start: function() {
              last_start = time_cb();
@@ -96,7 +122,9 @@ csapuntz.siteblock = (function () {
 
          
           allowed: function() {
-             return get_time_used() < time_allowed; 
+             return check_is_in_allowed_time_zone();
+   
+             // return get_time_used() < time_allowed; 
           },
 
           setInterval : function(allowed, period) {

@@ -8,15 +8,20 @@
     </head>
 
     <body>
-	<div id="status"></div>
-	<form>
-	Sites to Block:<br />
-	<textarea spellcheck="false" id="rules" cols="60" rows="15"></textarea>
+    <div id="status"></div>
+    <form>
+        Sites to Block:<br />
+        <textarea spellcheck="false" id="rules" cols="60" rows="15"></textarea>
+        <span style="display:none">
+            Unblock for <input type="text" id="allowed" cols="6" value=""/> minutes every <input type="text" id="period" cols="6" /> hours.
+        </span>
         <br />
-        Unblock for <input type="text" id="allowed" cols="6" /> minutes every <input type="text" id="period" cols="6" /> hours.
         <br />
-	<input id="submit" type="button" value="Save Options" />
-        </form>
+        Unblock from <input type="time" id="allowedTimeZoneFrom" cols="6" /> to <input type="time" id="allowedTimeZoneTill" cols="6" /> every day.
+        <br />
+        <br />
+        <input id="submit" type="button" value="Save Options" />
+    </form>
 
 <h2>Help</h2>
 
